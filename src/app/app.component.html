@@ -1,0 +1,23 @@
+<app-toast></app-toast>
+<nav class="navbar" *ngIf="currentUser">
+    <div class="nav-left" style="display: flex; align-items: center; gap: 2rem;">
+        <div style="flex-grow: 1;"></div>
+
+            <a *ngIf="currentUser.role === 'ADMIN'" routerLink="/admin" routerLinkActive="active"
+                class="nav-item">Dashboard</a>
+
+            <ng-container *ngIf="currentUser.role !== 'ADMIN'">
+                <a routerLink="/destinations" routerLinkActive="active" class="nav-item">Destinations</a>
+                <a routerLink="/wishlist" routerLinkActive="active" class="nav-item">My Wishlist</a>
+            </ng-container>
+
+    </div>
+
+    <div class="nav-right">
+       <button (click)="logout()" class="nav-btn logout-btn">Logout</button>
+    </div>
+</nav>
+
+<div class="main-content">
+    <router-outlet></router-outlet>
+</div>

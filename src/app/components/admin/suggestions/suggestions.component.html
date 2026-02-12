@@ -1,0 +1,92 @@
+<div class="suggestions-container">
+
+    <div class="header">
+        <h1>Destination Suggestions</h1>
+        <p>Discover new destinations from our curated list. Click cards to select multiple.</p>
+    </div>
+
+    <!-- Bulk Action Bar -->
+    <div class="bulk-actions" *ngIf="selectedDestinations.size > 0">
+        <span class="selected-count">{{selectedDestinations.size}} destinations selected</span>
+        <div class="action-buttons">
+            <button class="btn btn-secondary" (click)="selectedDestinations.clear()">Cancel Selection</button>
+            <button class="btn btn-primary" (click)="openBulkAddModal()">
+                Add Selected to Database <i class="fas fa-plus-circle"></i>
+            </button>
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="spinner"></div>
+
+    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+
+    <!-- Grid -->
+    <div class="suggestions-grid" *ngIf="!loading && suggestions.length > 0">
+        <div *ngFor="let dest of suggestions" class="suggestion-card" [class.selected-card]="isSelected(dest)"
+            (click)="toggleSelection(dest)">
+
+            <div class="selection-overlay" *ngIf="isSelected(dest)">
+                <i class="fas fa-check-circle"></i>
+            </div>
+
+            <div class="card-img-wrapper">
+                <img [src]="dest.flagImageUrl" alt="{{dest.country}}" class="flag-img">
+                <span class="region-tag">{{dest.region}}</span>
+            </div>
+
+            <div class="card-content">
+                <h3>{{dest.country}}</h3>
+                <div class="details">
+                    <p><i class="fas fa-landmark"></i> {{dest.capital}}</p>
+                    <p><i class="fas fa-users"></i> {{dest.population | number}}</p>
+                    <p><i class="fas fa-money-bill-wave"></i> {{dest.currency}}</p>
+                </div>
+
+                <div class="card-actions">
+                    <button class="add-btn" (click)="$event.stopPropagation(); openAddModal(dest)">
+                        <i class="fas fa-plus"></i> Add to Database
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && suggestions.length === 0" class="empty-state">
+        <i class="fas fa-check-circle"></i>
+        <h3>All caught up!</h3>
+        <p>There are no new suggestions at the moment.</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" *ngIf="toastMessage" [class.error]="toastType === 'error'">
+        <i class="fas" [class.fa-check-circle]="toastType === 'success'"
+            [class.fa-exclamation-circle]="toastType === 'error'"></i>
+        <span>{{toastMessage}}</span>
+    </div>
+
+    <!-- Custom Confirmation Modal -->
+    <div class="modal-overlay" *ngIf="showAddModal">
+        <div class="modal-content">
+            <div class="modal-icon add-icon">
+                <i class="fas fa-plus"></i>
+            </div>
+
+            <h3 *ngIf="modalMode === 'single'">Add Destination?</h3>
+            <h3 *ngIf="modalMode === 'bulk'">Add Multiple Destinations?</h3>
+
+            <p *ngIf="modalMode === 'single'">
+                Are you sure you want to add <strong>{{itemToAdd?.country}}</strong> to the public database?
+            </p>
+            <p *ngIf="modalMode === 'bulk'">
+                Are you sure you want to add <strong>{{selectedDestinations.size}} destinations</strong> to the public
+                database?
+            </p>
+
+            <div class="modal-actions">
+                <button class="btn btn-secondary" (click)="closeAddModal()">Cancel</button>
+                <button class="btn btn-primary" (click)="confirmAdd()">Yes, Add Destination</button>
+            </div>
+        </div>
+    </div>
+
+</div>

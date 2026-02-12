@@ -1,0 +1,69 @@
+<div class="wishlist-container">
+    <div class="header">
+        <h2> My Wishlist</h2>
+        <p>Your saved destinations for future adventures.</p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="loading" class="spinner"></div>
+
+    <!-- Error State -->
+    <div *ngIf="error" class="alert alert-danger" style="text-align: center;">
+        {{error}}
+    </div>
+
+    <!-- Wishlist Grid -->
+    <div *ngIf="!loading && wishlist.length > 0" class="wishlist-grid">
+        <div *ngFor="let dest of wishlist" class="wishlist-card">
+            <div class="card-img-wrapper">
+                <img [src]="dest.flagImageUrl" alt="{{dest.country}}" class="flag-img">
+            </div>
+
+            <div class="card-content">
+                <h3>{{dest.country}}</h3>
+                <div class="location">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>{{dest.region}}</span>
+                </div>
+
+                <p style="margin-bottom: 2rem; color: #777; font-size: 0.95rem;">
+                    {{dest.description || 'A beautiful destination to explore.'}}
+                </p>
+
+                <button class="remove-btn" (click)="onRemoveClick(dest.id)">
+                    <i class="fas fa-trash-alt"></i> Remove
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && wishlist.length === 0" class="empty-state">
+        <i class="far fa-sad-tear"></i>
+        <h3>Your wishlist is empty yet!</h3>
+        <p>Go to destinations and add some places you'd love to visit.</p>
+        <a routerLink="/destinations" class="btn btn-primary" style="margin-top: 1rem;">Browse Destinations</a>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast-notification" *ngIf="toastMessage" [class.error]="toastType === 'error'">
+        <i class="fas" [class.fa-check-circle]="toastType === 'success'"
+            [class.fa-exclamation-circle]="toastType === 'error'"></i>
+        <span>{{toastMessage}}</span>
+    </div>
+
+    <!-- Custom Delete Confirmation Modal -->
+    <div class="modal-overlay" *ngIf="showDeleteModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+            <h3>Remove from Wishlist?</h3>
+            <p>Are you sure you want to remove this destination from your wishlist?</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" (click)="confirmRemove()">Yes, Remove</button>
+            </div>
+        </div>
+    </div>
+</div>

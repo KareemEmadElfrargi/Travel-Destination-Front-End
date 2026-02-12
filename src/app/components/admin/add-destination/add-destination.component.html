@@ -1,0 +1,76 @@
+<div class="form-container admin-form">
+    <div class="card">
+        <h2>Add New Destination</h2>
+        <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+
+            <div class="form-group">
+                <label>Country Name</label>
+                <input type="text" formControlName="country" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['country'].errors }">
+                <div *ngIf="submitted && f['country'].errors" class="invalid-feedback">
+                    <div *ngIf="f['country'].errors['required']">Country name is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Capital</label>
+                <input type="text" formControlName="capital" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['capital'].errors }">
+                <div *ngIf="submitted && f['capital'].errors" class="invalid-feedback">
+                    <div *ngIf="f['capital'].errors['required']">Capital is required</div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-half">
+                    <div class="form-group">
+                        <label>Region</label>
+                        <input type="text" formControlName="region" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['region'].errors }">
+                        <div *ngIf="submitted && f['region'].errors" class="invalid-feedback">
+                            <div *ngIf="f['region'].errors['required']">Region is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-half">
+                    <div class="form-group">
+                        <label>Currency</label>
+                        <input type="text" formControlName="currency" class="form-control"
+                            [ngClass]="{ 'is-invalid': submitted && f['currency'].errors }">
+                        <div *ngIf="submitted && f['currency'].errors" class="invalid-feedback">
+                            <div *ngIf="f['currency'].errors['required']">Currency is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Population</label>
+                <input type="number" formControlName="population" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['population'].errors }">
+                <div *ngIf="submitted && f['population'].errors" class="invalid-feedback">
+                    <div *ngIf="f['population'].errors['required']">Population is required</div>
+                    <div *ngIf="f['population'].errors['min']">Must be non-negative</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Flag Image URL</label>
+                <input type="text" formControlName="flagImageUrl" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && f['flagImageUrl'].errors }">
+                <div *ngIf="submitted && f['flagImageUrl'].errors" class="invalid-feedback">
+                    <div *ngIf="f['flagImageUrl'].errors['required']">Flag URL is required</div>
+                </div>
+            </div>
+
+            <div class="form-actions inverted">
+                <a routerLink="/admin/dashboard" class="btn btn-secondary">Cancel</a>
+                <button type="submit" [disabled]="loading" class="btn btn-primary">
+                    <span *ngIf="loading" class="spinner-sm"></span>
+                    Save Destination
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

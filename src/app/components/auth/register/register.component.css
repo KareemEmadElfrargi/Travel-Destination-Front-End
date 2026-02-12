@@ -1,0 +1,121 @@
+.auth-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: radial-gradient(circle at center, #f4f7f6 0%, #e0eafc 100%);
+    padding: 2rem;
+}
+
+.auth-card {
+    background: white;
+    padding: 3rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h2 {
+    font-size: 2rem;
+    color: var(--text-color, #2d3436);
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+}
+
+.auth-header p {
+    color: var(--text-light, #636e72);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+input.form-control,
+select.form-control {
+    width: 100%;
+    padding: 14px 18px;
+    border: 2px solid #f0f0f0;
+    border-radius: 10px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f9f9f9;
+}
+
+input.form-control:focus,
+select.form-control:focus {
+    background: white;
+    box-shadow: 0 4px 15px rgba(79, 172, 254, 0.1);
+    border-color: var(--primary-color, #4facfe);
+    outline: none;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    border-radius: 12px;
+}
+
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+}
+
+.auth-footer a {
+    color: var(--primary-color, #4facfe);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.auth-footer a:hover {
+    text-decoration: underline;
+}
+
+.invalid-feedback {
+    color: var(--danger-color, #ff5858);
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.password-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-wrapper input {
+    width: 100%;
+    padding-right: 40px;
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #a0a0a0;
+    transition: color 0.3s;
+    font-size: 1.1rem;
+    z-index: 10;
+}
+
+.password-wrapper i:hover {
+    color: var(--primary-color, #4facfe);
+}
