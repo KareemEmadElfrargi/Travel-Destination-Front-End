@@ -1,0 +1,52 @@
+<div class="auth-wrapper">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>Create Account</h2>
+            <p>Join us and start your journey</p>
+        </div>
+
+        <div *ngIf="error" class="alert alert-danger" style="white-space: pre-line;">
+            {{error}}
+        </div>
+
+        <div *ngIf="success" class="alert success-alert"
+            style="background: #e8f5e9; color: #2e7d32; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+            {{success}}
+        </div>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <input type="text" formControlName="username" class="form-control" placeholder="Username"
+                    [ngClass]="{ 'is-invalid': submitted && f['username'].errors }">
+                <div *ngIf="submitted && f['username'].errors" class="invalid-feedback">
+                    <div *ngIf="f['username'].errors['required']">Username is required</div>
+                    <div *ngIf="f['username'].errors['minlength']">Username must be at least 3 characters</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="password-wrapper">
+                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" class="form-control"
+                        placeholder="Password" [ngClass]="{ 'is-invalid': submitted && f['password'].errors }">
+                    <i class="fas" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                        (click)="togglePasswordVisibility()"></i>
+                </div>
+                <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                    <div *ngIf="f['password'].errors['required']">Password is required</div>
+                    <div *ngIf="f['password'].errors['minlength']">Password must be at least 6 characters</div>
+                </div>
+            </div>
+
+
+
+            <button type="submit" [disabled]="loading" class="btn btn-primary submit-btn">
+                <span *ngIf="loading" class="spinner-sm"></span>
+                <span *ngIf="!loading">Sign Up</span>
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a routerLink="/login">Login</a></p>
+        </div>
+    </div>
+</div>

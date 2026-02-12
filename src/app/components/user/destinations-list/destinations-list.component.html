@@ -1,0 +1,81 @@
+<div class="destinations-container">
+    <div class="search-section">
+        <h3 *ngIf="currentUser" style="color: #666; font-weight: 500; font-size: 1.2rem; margin-bottom: 0.5rem;">Hi,
+            {{currentUser.username | titlecase}} 👋</h3>
+        <h2>Discover Your Next Adventure</h2>
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" [(ngModel)]="searchQuery" (input)="onSearch()" placeholder="Search countries, regions..."
+                class="search-input">
+        </div>
+    </div>
+
+    <div *ngIf="loading" class="spinner"></div>
+
+    <div class="destinations-grid" *ngIf="!loading">
+        <div class="destination-card" *ngFor="let dest of destinations" [routerLink]="['/destinations', dest.id]">
+            <div class="card-img-wrapper">
+                <img [src]="dest.flagImageUrl" alt="{{dest.country}} Flag" class="flag-img">
+                <span class="region-tag">{{dest.region}}</span>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">{{dest.country}}</h3>
+
+                <div class="card-info">
+                    <p><i class="fas fa-users"></i> {{dest.population | number}}</p>
+                    <p><i class="fas fa-landmark"></i> {{dest.capital}}</p>
+                </div>
+
+                <div class="card-footer">
+                    <span class="currency-tag">{{dest.currency}}</span>
+
+                    <div class="card-actions">
+                        <!-- Wishlist Toggle Button (Users Only) -->
+                        <button class="wishlist-btn" *ngIf="!isAdmin"
+                            (click)="$event.stopPropagation(); toggleWishlist(dest)"
+                            [title]="isInWishlist(dest.id) ? 'Remove from Wishlist' : 'Add to Wishlist'"
+                            [class.active]="isInWishlist(dest.id)">
+                            <i [class]="isInWishlist(dest.id) ? 'fas fa-heart' : 'far fa-heart'"></i>
+                        </button>
+
+                        <!-- Admin Delete Button (Admins Only) -->
+                        <button *ngIf="isAdmin" class="delete-btn"
+                            (click)="$event.stopPropagation(); deleteDestination(dest.id)" title="Delete Destination">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <div class="pagination" *ngIf="totalPages > 1 && !loading">
+        <button class="btn btn-secondary" (click)="onPageChange(page - 1)" [disabled]="page === 0">Previous</button>
+        <span class="page-info">Page {{page + 1}} of {{totalPages}}</span>
+        <button class="btn btn-primary" (click)="onPageChange(page + 1)"
+            [disabled]="page === totalPages - 1">Next</button>
+    </div>
+
+    <div *ngIf="!loading && destinations.length === 0" class="text-center" style="margin-top: 3rem;">
+        <h3>No destinations found matching your search.</h3>
+    </div>
+
+
+
+    <!-- Custom Delete Confirmation Modal -->
+    <div class="modal-overlay" *ngIf="showDeleteModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-trash-alt"></i>
+            </div>
+            <h3>Delete Destination?</h3>
+            <p>Are you sure you want to delete this destination? This action cannot be undone.</p>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" (click)="closeDeleteModal()">Cancel</button>
+                <button class="btn btn-danger" (click)="confirmDelete()">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

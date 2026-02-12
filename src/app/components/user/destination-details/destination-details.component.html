@@ -1,0 +1,72 @@
+<div class="container details-container" *ngIf="destination">
+
+    <!-- Premium Card Layout -->
+    <div class="details-card">
+        <!-- Left Side: Flag Image -->
+        <div class="flag-section">
+            <img [src]="destination.flagImageUrl" alt="{{destination.country}} Flag">
+        </div>
+
+        <!-- Right Side: Information -->
+        <div class="info-section">
+            <div class="header">
+                <h1>{{destination.country}}</h1>
+                <span class="region-badge"><i class="fas fa-globe-americas"></i> {{destination.region}}</span>
+            </div>
+
+            <p class="description" *ngIf="destination.description">{{destination.description}}</p>
+            <p class="description" *ngIf="!destination.description">
+                Discover the beauty and culture of {{destination.country}}. A perfect destination for your next
+                adventure.
+            </p>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-landmark"></i>
+                    <div>
+                        <span class="label">Capital</span>
+                        <span class="value">{{destination.capital}}</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <div>
+                        <span class="label">Population</span>
+                        <span class="value">{{destination.population | number}}</span>
+                    </div>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-coins"></i>
+                    <div>
+                        <span class="label">Currency</span>
+                        <span class="value">{{destination.currency}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <!-- Wishlist Button (Users Only) -->
+                <button *ngIf="!isAdmin" (click)="toggleWishlist()" class="btn btn-lg"
+                    [ngClass]="isInWishlist ? 'btn-danger' : 'btn-primary'">
+                    <i [class]="isInWishlist ? 'fas fa-heart-broken' : 'far fa-heart'"></i>
+                    {{ isInWishlist ? 'Remove from Wishlist' : 'Add to Wishlist' }}
+                </button>
+
+                <a routerLink="/destinations" class="btn btn-outline-dark btn-lg">
+                    <i class="fas fa-arrow-left"></i> Back to List
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Loading & Error States -->
+<div *ngIf="loading" class="spinner-container">
+    <div class="spinner"></div>
+</div>
+
+<div *ngIf="error" class="error-container">
+    <div class="alert alert-danger">{{error}}</div>
+    <a routerLink="/destinations" class="btn btn-secondary">Go Back</a>
+</div>

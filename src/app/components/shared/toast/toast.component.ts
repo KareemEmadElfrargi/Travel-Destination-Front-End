@@ -47,7 +47,7 @@ export class ToastComponent implements OnInit {
     }
 
     getToastClass(type: string): string {
-        return `toast-${type}`; // e.g., toast-success
+        return `toast-${type}`;
     }
 
     getIcon(type: string): string {

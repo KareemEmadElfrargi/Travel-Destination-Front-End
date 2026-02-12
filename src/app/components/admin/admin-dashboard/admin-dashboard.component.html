@@ -1,0 +1,31 @@
+<div class="dashboard-wrapper">
+    <div class="dashboard-header">
+        <h1>Admin Dashboard</h1>
+        <h3 *ngIf="currentUser" style="color: #666; margin: 0.5rem 0;">Hi, {{currentUser.username}} 👋</h3>
+        <p>Manage destinations and content easily.</p>
+    </div>
+
+    <div class="dashboard-grid">
+        <!-- Main Actions Card -->
+        <div class="card dash-card" style="border-left: 5px solid var(--primary-color);">
+            <h3><i class="fas fa-globe-americas"></i> Suggestions</h3>
+            <p>Fetch new countries from external APIs and add them to the platform.</p>
+            <div class="dash-actions">
+                <a routerLink="/admin/suggestions" class="btn btn-primary" style="width: 100%;">
+                    <i class="fas fa-magic"></i> Manage Suggestions
+                </a>
+            </div>
+        </div>
+
+        <!-- Quick Link to View Live Site -->
+        <div class="card dash-card">
+            <h3><i class="fas fa-eye"></i> Live Preview</h3>
+            <p>View the destinations page as users see it.</p>
+            <div class="dash-actions">
+                <a routerLink="/destinations" class="btn btn-secondary" style="width: 100%;">
+                    Go to Destinations List
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
